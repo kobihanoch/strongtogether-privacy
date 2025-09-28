@@ -1,156 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- English comments only -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Privacy Policy - Strong Together</title>
-    <meta
-      name="description"
-      content="Privacy policy for Strong Together mobile app"
-    />
+    <title>Privacy Policy – Strong Together</title>
     <style>
-      :root {
-        --bg: #0f172a;
-        --card: #111827;
-        --text: #e5e7eb;
-        --muted: #9ca3af;
-        --accent: #60a5fa;
-      }
       body {
-        margin: 0;
-        background: var(--bg);
-        color: var(--text);
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
-          Arial, sans-serif;
+        background: #0f172a;
+        color: #e5e7eb;
+        font-family: system-ui, sans-serif;
+        padding: 2rem;
         line-height: 1.6;
+        max-width: 800px;
+        margin: auto;
       }
-      .wrap {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 32px;
-      }
-      .card {
-        background: var(--card);
-        border-radius: 16px;
-        padding: 28px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-      }
-      h1 {
-        margin-top: 0;
-        font-size: 1.8rem;
-      }
+      h1,
       h2 {
-        margin-top: 2rem;
-        font-size: 1.3rem;
+        color: #60a5fa;
       }
       a {
-        color: var(--accent);
+        color: #60a5fa;
         text-decoration: none;
       }
       a:hover {
         text-decoration: underline;
       }
       .muted {
-        color: var(--muted);
+        color: #9ca3af;
       }
-      .badge {
-        display: inline-block;
-        padding: 4px 10px;
-        border-radius: 999px;
-        background: #1f2937;
-        color: #cbd5e1;
-        font-size: 0.85rem;
-      }
-      .divider {
-        height: 1px;
-        background: #1f2937;
-        margin: 20px 0;
+      .section {
+        margin-bottom: 2rem;
       }
     </style>
   </head>
   <body>
-    <div class="wrap">
-      <div class="card">
-        <div class="badge">Strong Together · Privacy Policy</div>
-        <h1>Privacy Policy</h1>
-        <p class="muted">Last updated: September 28, 2025</p>
+    <h1>Privacy Policy – Strong Together</h1>
+    <p class="muted">Last updated: September 28, 2025</p>
 
-        <h2>Introduction</h2>
-        <p>
-          Strong Together ("the App") respects your privacy. This policy
-          explains what data we collect, how we use it, and your rights
-          regarding your personal information.
-        </p>
+    <div class="section">
+      <h2>1. Overview</h2>
+      <p>
+        Strong Together (“the App”) is a fitness tracking mobile application
+        that respects your privacy. This policy explains what data we collect,
+        how we use it, and your rights.
+      </p>
+    </div>
 
-        <h2>1. Data We Collect</h2>
-        <ul>
-          <li>Full name, username, and email address</li>
-          <li>Birthdate, gender, and profile image (if uploaded)</li>
-          <li>Workout data: exercises, sets, reps, weights, dates</li>
-          <li>Cardio logs and session details</li>
-          <li>Device ID and push notification token</li>
-          <li>App version, crash reports, and technical diagnostics</li>
-        </ul>
+    <div class="section">
+      <h2>2. Information We Collect</h2>
+      <ul>
+        <li>
+          User profile: full name, username, email, birthdate, gender, profile
+          image
+        </li>
+        <li>
+          Authentication: access token (JWT), refresh token, secure login
+          sessions
+        </li>
+        <li>
+          Workout data: workout plans, splits, exercises, sets, reps, weights,
+          notes
+        </li>
+        <li>Cardio tracking: type, duration, workout date</li>
+        <li>
+          Scheduled workouts: reminders, time, day of week, user preferences
+        </li>
+        <li>Messages: inbox messages sent between users</li>
+        <li>Push notifications: push_token for device notifications</li>
+        <li>Technical data: app version, crash logs, device info</li>
+      </ul>
+    </div>
 
-        <h2>2. How We Use Your Data</h2>
-        <ul>
-          <li>To create and manage your account</li>
-          <li>To save your workouts and progress history</li>
-          <li>To show you personalized statistics and insights</li>
-          <li>To send relevant push notifications (if enabled)</li>
-          <li>To improve app stability, performance, and user experience</li>
-        </ul>
+    <div class="section">
+      <h2>3. How We Use Your Data</h2>
+      <ul>
+        <li>To authenticate users and manage secure sessions</li>
+        <li>To track and display your workouts and fitness progress</li>
+        <li>To send reminders or workout-related notifications (if enabled)</li>
+        <li>To analyze workout trends and progress (locally or in backend)</li>
+        <li>
+          To support core features like messaging, exercise history, statistics
+        </li>
+        <li>
+          To improve app performance, fix bugs, and enhance the experience
+        </li>
+      </ul>
+    </div>
 
-        <h2>3. Data Sharing</h2>
-        <p>
-          We do not sell or rent your personal data. Some information is
-          processed through trusted third-party services such as:
-        </p>
-        <ul>
-          <li>Hosting and storage (e.g. Render, Supabase)</li>
-          <li>Push notification services (e.g. Expo Notifications)</li>
-        </ul>
-        <p>
-          All third-party services are required to meet high standards of data
-          protection and confidentiality.
-        </p>
+    <div class="section">
+      <h2>4. Data Storage and Security</h2>
+      <ul>
+        <li>All data is transmitted over HTTPS</li>
+        <li>JWT tokens are stored securely using SecureStore</li>
+        <li>Passwords are hashed before storage in Supabase</li>
+        <li>
+          Redis is used in the backend for performance and queuing
+          (non-personal)
+        </li>
+        <li>We follow best practices to prevent unauthorized access</li>
+      </ul>
+    </div>
 
-        <h2>4. Data Security</h2>
-        <ul>
-          <li>All communication is encrypted using HTTPS</li>
-          <li>Authentication tokens are securely stored</li>
-          <li>We implement safeguards to reduce data breach risks</li>
-        </ul>
+    <div class="section">
+      <h2>5. Third-Party Services</h2>
+      <p>Your data is handled securely using the following services:</p>
+      <ul>
+        <li>
+          <strong>Supabase</strong> – database, authentication, and storage
+        </li>
+        <li><strong>Render</strong> – hosting backend server</li>
+        <li><strong>Redis</strong> – in-memory cache (for performance only)</li>
+        <li>
+          <strong>Expo Notifications</strong> – sending push notifications
+        </li>
+      </ul>
+      <p>These services comply with modern security and privacy standards.</p>
+    </div>
 
-        <h2>5. Retention and Deletion</h2>
-        <p>
-          You may request to delete your account and all associated data at any
-          time, either within the app (if supported) or by emailing us. Deletion
-          requests are processed within 14 business days after identity
-          verification.
-        </p>
+    <div class="section">
+      <h2>6. Account Deletion</h2>
+      <p>
+        You may delete your account directly from within the app. Upon deletion,
+        your profile and all related workout and tracking data will be
+        permanently removed within 14 business days.
+      </p>
+    </div>
 
-        <h2>6. Your Rights</h2>
-        <ul>
-          <li>Access a copy of your stored data</li>
-          <li>Request corrections or deletion of your data</li>
-          <li>Withdraw your consent for notifications at any time</li>
-        </ul>
+    <div class="section">
+      <h2>7. Your Rights</h2>
+      <ul>
+        <li>Request access to your personal data</li>
+        <li>Request correction or deletion of your data</li>
+        <li>Disable push notifications at any time via app or OS settings</li>
+        <li>Contact us at any time regarding privacy concerns</li>
+      </ul>
+    </div>
 
-        <h2>7. Contact</h2>
-        <p>
-          For questions, requests, or concerns, please contact us at:<br />
-          <a href="mailto:hardcoded@example.com">hardcoded@example.com</a>
-        </p>
+    <div class="section">
+      <h2>8. Contact</h2>
+      <p>
+        If you have questions, requests, or concerns, please contact:<br />
+        <a href="mailto:kobikobi622@gmail.com">kobikobi622@gmail.com</a>
+      </p>
+    </div>
 
-        <div class="divider"></div>
-        <p class="muted">
-          Note: If Strong Together integrates with Apple Health or HealthKit in
-          the future, we will update this policy and request your explicit
-          consent before collecting health-related data.
-        </p>
-      </div>
+    <div class="section muted">
+      <p>
+        <em>
+          Note: Strong Together does not integrate with Apple Health or
+          HealthKit at this time. If we do in the future, this policy will be
+          updated, and explicit user consent will be requested.
+        </em>
+      </p>
     </div>
   </body>
 </html>
