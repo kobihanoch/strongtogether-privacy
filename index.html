@@ -3,168 +3,612 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Privacy Policy – Strong Together</title>
+    <title>Strong Together — Support & Privacy</title>
+    <meta name="color-scheme" content="light dark" />
+    <meta name="robots" content="index,follow" />
+    <meta name="format-detection" content="telephone=no" />
     <style>
+      /* ================================
+         Design goals
+         - Keep the exact textual content unchanged
+         - Calm, readable, non-flashy UI
+         - WCAG-friendly contrast and focus states
+         - Print-friendly (Apple reviewers often print)
+         - No external dependencies / tracking
+         ================================ */
+
+      /* ---------- Color tokens (subtle, high-contrast) ---------- */
+      :root {
+        --bg: #0f172a; /* slate-900 */
+        --fg: #e5e7eb; /* gray-200 */
+        --fg-strong: #f8fafc; /* near-white for headings */
+        --muted: #94a3b8; /* slate-400 */
+        --accent: #60a5fa; /* blue-400 */
+        --card: #111827; /* gray-900 */
+        --border: #1f2937; /* gray-800 */
+        --ring: rgba(96, 165, 250, 0.5);
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #ffffff;
+          --fg: #0b1222;
+          --fg-strong: #0b1222;
+          --muted: #475569;
+          --accent: #2563eb;
+          --card: #f8fafc;
+          --border: #e5e7eb;
+          --ring: rgba(37, 99, 235, 0.28);
+        }
+      }
+
+      /* ---------- Base layout & typography ---------- */
+      * {
+        box-sizing: border-box;
+      }
+      html,
       body {
-        background: #0f172a;
-        color: #e5e7eb;
-        font-family: system-ui, sans-serif;
-        padding: 2rem;
-        line-height: 1.6;
-        max-width: 800px;
-        margin: auto;
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter,
+          sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .container {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      /* ---------- Skip link for accessibility ---------- */
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+      .skip-link:focus-visible {
+        position: fixed;
+        left: 16px;
+        top: 12px;
+        width: auto;
+        height: auto;
+        padding: 8px 12px;
+        background: var(--accent);
+        color: white;
+        border-radius: 8px;
+        z-index: 9999;
+      }
+
+      /* ---------- Top nav (simple, sticky) ---------- */
+      .quick-nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: color-mix(in oklab, var(--bg) 92%, black 8%);
+        border-bottom: 1px solid var(--border);
+        backdrop-filter: saturate(120%) blur(4px);
+      }
+      .quick-nav .inner {
+        max-width: 860px;
+        margin: 0 auto;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 10px 16px;
+      }
+      .quick-nav a {
+        text-decoration: none;
+        color: var(--fg);
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        font-size: 14px;
+        line-height: 1;
+      }
+      .quick-nav a:hover,
+      .quick-nav a:focus-visible {
+        border-color: var(--accent);
+        color: var(--accent);
+        outline: none;
+      }
+
+      /* ---------- Headings & sections ---------- */
+      section {
+        scroll-margin-top: 76px;
       }
       h1,
       h2 {
-        color: #60a5fa;
+        color: var(--fg-strong);
+        line-height: 1.25;
+        margin: 0 0 8px 0;
+        letter-spacing: 0.2px;
       }
-      a {
-        color: #60a5fa;
+      h1 {
+        font-size: clamp(28px, 3.6vw, 40px);
+      }
+      h2 {
+        font-size: clamp(20px, 2.6vw, 26px);
+        color: var(--accent);
+      }
+      .muted {
+        color: var(--muted);
+      }
+
+      /* ---------- Card shells (flat, quiet) ---------- */
+      .card,
+      .panel {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+      }
+
+      /* ---------- Hero (flat, no glow) ---------- */
+      .hero {
+        margin-top: 24px;
+        padding: 24px;
+      }
+      .hero-sub {
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
+
+      /* ---------- Action row ---------- */
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 14px 0 4px 0;
+      }
+      .btn {
+        /* Accessible buttons with clear focus states */
+        appearance: none;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--fg);
+        padding: 10px 14px;
+        border-radius: 12px;
+        cursor: pointer;
         text-decoration: none;
+        line-height: 1;
+        transition: transform 0.06s ease, border-color 0.2s ease,
+          outline 0.2s ease;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      .btn:focus-visible {
+        outline: 0;
+        box-shadow: 0 0 0 4px var(--ring);
+      }
+      .btn.primary {
+        background: var(--accent);
+        color: #ffffff;
+        border-color: color-mix(in oklab, var(--accent) 85%, black 15%);
+      }
+      .btn.ghost {
+        background: color-mix(in oklab, var(--bg) 85%, white 15%);
+      }
+      .btn.minor {
+        opacity: 0.92;
+      }
+
+      .hint {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 6px;
+      }
+
+      /* ---------- Small info cards ---------- */
+      .card-grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        margin-top: 14px;
+      }
+      .info-card {
+        padding: 14px;
+      }
+      .info-card h3 {
+        margin: 4px 0 6px 0;
+        font-size: 16px;
+        color: var(--fg-strong);
+      }
+      .info-card p {
+        margin: 0;
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      /* ---------- FAQ (native details) ---------- */
+      details.faq {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 14px;
+        margin: 8px 0;
+      }
+      details.faq summary {
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      details.faq summary::marker {
+        display: none;
+      }
+      details.faq summary:focus-visible {
+        outline: 0;
+        box-shadow: 0 0 0 4px var(--ring);
+        border-radius: 8px;
+      }
+      details.faq p {
+        margin: 10px 0 0 0;
+        color: var(--muted);
+      }
+
+      /* ---------- Divider (calm) ---------- */
+      .divider-wrap {
+        margin: 48px 0 32px 0;
+      }
+      .divider {
+        height: 1px;
+        background: var(--border);
+        border-radius: 1px;
+      }
+
+      /* ---------- Privacy blocks ---------- */
+      .section-block {
+        margin-bottom: 24px;
+        padding: 18px;
+      }
+      ul {
+        padding-left: 20px;
+      }
+      li {
+        margin: 6px 0;
+      }
+
+      /* ---------- Footer note ---------- */
+      .note {
+        font-style: italic;
+        color: var(--muted);
+        border: 1px dashed var(--border);
+        padding: 14px;
+        border-radius: 12px;
+        background: color-mix(in oklab, var(--bg) 92%, white 8%);
+      }
+
+      /* ---------- Links ---------- */
+      a {
+        color: var(--accent);
       }
       a:hover {
         text-decoration: underline;
       }
-      .muted {
-        color: #9ca3af;
+
+      /* ---------- Print styles (for reviewers) ---------- */
+      @media print {
+        .quick-nav,
+        .actions {
+          display: none !important;
+        }
+        body {
+          background: #ffffff;
+          color: #000000;
+        }
+        .card,
+        .panel,
+        .section-block,
+        details.faq {
+          border: 1px solid #bbb !important;
+          background: #fff !important;
+          box-shadow: none !important;
+        }
+        a {
+          color: #0000ee;
+          text-decoration: underline;
+        }
       }
-      .section {
-        margin-bottom: 2rem;
+
+      /* ---------- Reduced motion preference ---------- */
+      @media (prefers-reduced-motion: reduce) {
+        .btn {
+          transition: none;
+        }
       }
     </style>
   </head>
   <body>
-    <h1>Privacy Policy – Strong Together</h1>
-    <p class="muted">Last updated: September 28, 2025</p>
+    <a class="skip-link" href="#support">Skip to content</a>
 
-    <div class="section" id="privacy">
-      <h2>1. Overview</h2>
-      <p>
-        Strong Together (“the App”) is a fitness tracking mobile application
-        that respects your privacy. This policy explains what data I collect,
-        how I use it, and your rights.
-      </p>
-    </div>
+    <!-- Sticky quick nav -->
+    <nav class="quick-nav" aria-label="Quick navigation">
+      <div class="inner">
+        <a href="#support">Support</a>
+        <a href="#privacy">Privacy Policy</a>
+      </div>
+    </nav>
 
-    <div class="section">
-      <h2>2. Information I Collect</h2>
-      <ul>
-        <li>
-          User profile: full name, username, email, birthdate, gender, profile
-          image
-        </li>
-        <li>
-          Authentication: access token (JWT), refresh token, secure login
-          sessions
-        </li>
-        <li>
-          Workout data: workout plans, splits, exercises, sets, reps, weights,
-          notes
-        </li>
-        <li>Cardio tracking: type, duration, workout date</li>
-        <li>
-          Scheduled workouts: reminders, time, day of week, user preferences
-        </li>
-        <li>Messages: inbox messages sent between users</li>
-        <li>Push notifications: push_token for device notifications</li>
-        <li>Technical data: app version, crash logs, device info</li>
-      </ul>
-    </div>
+    <main class="container" id="main">
+      <!-- ======================= SUPPORT (first) ======================= -->
+      <section id="support" aria-labelledby="support-title">
+        <div class="hero panel" role="region" aria-label="Support section">
+          <h1 id="support-title">Strong Together — Support</h1>
+          <p class="hero-sub">
+            I’m Kobi Hanoch, the sole developer. If you need help, I’m one email
+            away.
+          </p>
 
-    <div class="section">
-      <h2>3. How I Use Your Data</h2>
-      <ul>
-        <li>To authenticate you and manage secure sessions</li>
-        <li>To track and display your workouts and fitness progress</li>
-        <li>To send reminders or workout-related notifications (if enabled)</li>
-        <li>
-          To analyze your workout trends and progress (locally or in backend)
-        </li>
-        <li>
-          To support core features like messaging, exercise history, statistics
-        </li>
-        <li>
-          To improve app performance, fix bugs, and enhance your experience
-        </li>
-      </ul>
-    </div>
+          <!-- Action buttons -->
+          <div class="actions" role="group" aria-label="Support actions">
+            <!-- Primary email action -->
+            <a
+              class="btn primary"
+              href="mailto:kobikobi622@gmail.com"
+              aria-label="Email support"
+            >
+              📧 Email Support
+            </a>
 
-    <div class="section">
-      <h2>4. Data Storage and Security</h2>
-      <ul>
-        <li>All data is transmitted over HTTPS</li>
-        <li>JWT tokens are stored securely using SecureStore</li>
-        <li>Passwords are hashed before storage in Supabase</li>
-        <li>
-          Redis is used in the backend for performance and queuing
-          (non-personal)
-        </li>
-        <li>I follow best practices to prevent unauthorized access</li>
-      </ul>
-    </div>
+            <!-- Copy email to clipboard -->
+            <button
+              class="btn ghost"
+              id="copyEmailBtn"
+              type="button"
+              aria-label="Copy email address"
+            >
+              Copy Email
+            </button>
 
-    <div class="section">
-      <h2>5. Third-Party Services</h2>
-      <p>Your data is handled securely using the following services:</p>
-      <ul>
-        <li>
-          <strong>Supabase</strong> – database, authentication, and storage
-        </li>
-        <li><strong>Render</strong> – hosting backend server</li>
-        <li><strong>Redis</strong> – in-memory cache (for performance only)</li>
-        <li>
-          <strong>Expo Notifications</strong> – sending push notifications
-        </li>
-      </ul>
-      <p>These services comply with modern security and privacy standards.</p>
-    </div>
+            <!-- Optional: link to GitHub issues (remove if you don't want public issues) -->
+            <a
+              class="btn minor"
+              href="https://github.com/kobihanoch/Strong-Together-App/issues"
+              target="_blank"
+              rel="noopener"
+              aria-label="Open GitHub Issues"
+            >
+              Report an Issue (GitHub)
+            </a>
+          </div>
 
-    <div class="section">
-      <h2>6. Account Deletion</h2>
-      <p>
-        You may delete your account directly from within the app at any time.
-        Upon confirmation, your profile and all associated data (including
-        workout history, cardio logs, and scheduled sessions) are deleted
-        <strong>immediately</strong>. This process is irreversible.
-      </p>
-    </div>
+          <p class="hint">I typically respond within 1–2 business days.</p>
 
-    <div class="section">
-      <h2>7. Your Rights</h2>
-      <ul>
-        <li>Request access to your personal data</li>
-        <li>Request correction or deletion of your data</li>
-        <li>Disable push notifications at any time via app or OS settings</li>
-        <li>Contact me at any time regarding privacy concerns</li>
-      </ul>
-    </div>
+          <!-- Small feature cards to set expectations -->
+          <div class="card-grid" aria-label="Support info">
+            <div class="info-card card">
+              <h3>What to include</h3>
+              <p>
+                Steps to reproduce, screenshots, and your app version help me
+                fix issues faster.
+              </p>
+            </div>
+            <div class="info-card card">
+              <h3>Data safety</h3>
+              <p>
+                Bug reports should avoid sharing sensitive personal data. Mask
+                emails or names if possible.
+              </p>
+            </div>
+            <div class="info-card card">
+              <h3>Status & updates</h3>
+              <p>
+                Small fixes ship quickly via updates. Major features are
+                announced in release notes.
+              </p>
+            </div>
+          </div>
 
-    <div class="section">
-      <h2>8. Contact</h2>
-      <p>
-        If you have questions, requests, or concerns, please contact:<br />
-        <a href="mailto:kobikobi622@gmail.com">kobikobi622@gmail.com</a>
-      </p>
-    </div>
+          <!-- Lightweight FAQ -->
+          <div class="section" aria-label="Support FAQ">
+            <h2>FAQ</h2>
 
-    <div class="section muted">
-      <p>
-        <em>
-          Note: Strong Together does not integrate with Apple Health or
-          HealthKit at this time. If I do in the future, this policy will be
-          updated, and your explicit consent will be requested.
-        </em>
-      </p>
-    </div>
+            <details class="faq">
+              <summary>How do I edit my workout plan?</summary>
+              <p>
+                Go to
+                <em>Home → Scroll to bottom → Edit workout → Edit and Save</em>.
+              </p>
+            </details>
 
-    <div class="section" id="support">
-      <h2>9. Support</h2>
-      <p>
-        For technical support, bug reports, or any issues using the app, feel
-        free to contact me directly:<br />
-        <a href="mailto:kobikobi622@gmail.com">kobikobi622@gmail.com</a><br />
-        I typically respond within 1–2 business days.
-      </p>
-    </div>
+            <details class="faq">
+              <summary>Where are servers located?</summary>
+              <p>
+                Primary DB and Redis cache are hosted in Europe. Latency may
+                vary slightly by region.
+              </p>
+            </details>
+
+            <details class="faq">
+              <summary>How do I delete my account?</summary>
+              <p>
+                Inside the app: <em>Settings → Delete Account</em>. This removes
+                your profile and related data immediately.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- Calm divider -->
+      <div class="divider-wrap" role="separator" aria-label="Section divider">
+        <div class="divider"></div>
+      </div>
+
+      <!-- ======================= PRIVACY POLICY (second) ======================= -->
+      <section id="privacy" aria-labelledby="privacy-title">
+        <div class="section">
+          <h1 id="privacy-title">Privacy Policy – Strong Together</h1>
+          <p class="muted">Last updated: September 28, 2025</p>
+        </div>
+
+        <div class="section-block card">
+          <h2>1. Overview</h2>
+          <p>
+            Strong Together (“the App”) is a fitness tracking mobile application
+            that respects your privacy. This policy explains what data I
+            collect, how I use it, and your rights.
+          </p>
+        </div>
+
+        <div class="section-block card">
+          <h2>2. Information I Collect</h2>
+          <ul>
+            <li>
+              User profile: full name, username, email, birthdate, gender,
+              profile image
+            </li>
+            <li>
+              Authentication: access token (JWT), refresh token, secure login
+              sessions
+            </li>
+            <li>
+              Workout data: workout plans, splits, exercises, sets, reps,
+              weights, notes
+            </li>
+            <li>Cardio tracking: type, duration, workout date</li>
+            <li>
+              Scheduled workouts: reminders, time, day of week, user preferences
+            </li>
+            <li>Messages: inbox messages sent between users</li>
+            <li>Push notifications: push_token for device notifications</li>
+            <li>Technical data: app version, crash logs, device info</li>
+          </ul>
+        </div>
+
+        <div class="section-block card">
+          <h2>3. How I Use Your Data</h2>
+          <ul>
+            <li>To authenticate you and manage secure sessions</li>
+            <li>To track and display your workouts and fitness progress</li>
+            <li>
+              To send reminders or workout-related notifications (if enabled)
+            </li>
+            <li>
+              To analyze your workout trends and progress (locally or in
+              backend)
+            </li>
+            <li>
+              To support core features like messaging, exercise history,
+              statistics
+            </li>
+            <li>
+              To improve app performance, fix bugs, and enhance your experience
+            </li>
+          </ul>
+        </div>
+
+        <div class="section-block card">
+          <h2>4. Data Storage and Security</h2>
+          <ul>
+            <li>All data is transmitted over HTTPS</li>
+            <li>JWT tokens are stored securely using SecureStore</li>
+            <li>Passwords are hashed before storage in Supabase</li>
+            <li>
+              Redis is used in the backend for performance and queuing
+              (non-personal)
+            </li>
+            <li>I follow best practices to prevent unauthorized access</li>
+          </ul>
+        </div>
+
+        <div class="section-block card">
+          <h2>5. Third-Party Services</h2>
+          <p>Your data is handled securely using the following services:</p>
+          <ul>
+            <li>
+              <strong>Supabase</strong> – database, authentication, and storage
+            </li>
+            <li><strong>Render</strong> – hosting backend server</li>
+            <li>
+              <strong>Redis</strong> – in-memory cache (for performance only)
+            </li>
+            <li>
+              <strong>Expo Notifications</strong> – sending push notifications
+            </li>
+          </ul>
+          <p>
+            These services comply with modern security and privacy standards.
+          </p>
+        </div>
+
+        <div class="section-block card">
+          <h2>6. Account Deletion</h2>
+          <p>
+            You may delete your account directly from within the app at any
+            time. Upon confirmation, your profile and all associated data
+            (including workout history, cardio logs, and scheduled sessions) are
+            deleted <strong>immediately</strong>. This process is irreversible.
+          </p>
+        </div>
+
+        <div class="section-block card">
+          <h2>7. Your Rights</h2>
+          <ul>
+            <li>Request access to your personal data</li>
+            <li>Request correction or deletion of your data</li>
+            <li>
+              Disable push notifications at any time via app or OS settings
+            </li>
+            <li>Contact me at any time regarding privacy concerns</li>
+          </ul>
+        </div>
+
+        <div class="section-block card">
+          <h2>8. Contact</h2>
+          <p>
+            For privacy-related requests, contact:
+            <a href="mailto:kobikobi622@gmail.com">kobikobi622@gmail.com</a>
+          </p>
+          <div class="note">
+            Note: Strong Together does not integrate with Apple Health or
+            HealthKit at this time. If I do in the future, this policy will be
+            updated, and your explicit consent will be requested.
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // --- Copy email action (no frameworks)
+      // English-only comments per your request.
+
+      const copyBtn = document.getElementById("copyEmailBtn");
+      if (copyBtn) {
+        copyBtn.addEventListener("click", async () => {
+          const email = "kobikobi622@gmail.com";
+          try {
+            await navigator.clipboard.writeText(email);
+            copyBtn.textContent = "✅ Email copied";
+            copyBtn.style.outline = "none";
+            copyBtn.style.boxShadow = "0 0 0 4px var(--ring)";
+            setTimeout(() => {
+              copyBtn.textContent = "📋 Copy Email";
+              copyBtn.style.boxShadow = "";
+            }, 1600);
+          } catch (err) {
+            // Fallback if clipboard API is blocked
+            const dummy = document.createElement("input");
+            dummy.value = email;
+            document.body.appendChild(dummy);
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            copyBtn.textContent = "✅ Email copied";
+            setTimeout(() => (copyBtn.textContent = "📋 Copy Email"), 1600);
+          }
+        });
+      }
+    </script>
   </body>
 </html>
